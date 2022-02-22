@@ -1,0 +1,11 @@
+detector:
+  config_file: configs/pgie_config.txt
+
+tracker:
+  config_file: configs/tracker_config.txt
+
+sender:
+  url: http://localhost:5988/detection
+
+sources:
+  - file:///opt/nvidia/deepstream/deepstream-6.0/samples/streams/sample_720p.mp4 
