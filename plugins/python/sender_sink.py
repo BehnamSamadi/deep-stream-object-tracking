@@ -82,8 +82,10 @@ class SenderSink(GstBase.BaseSink):
                 break
 
             frame_data = self.extract_data_from_frame(frame_meta)
-
-            requests.post(self.connection_url, json=frame_data)
+            try:
+                requests.post(self.connection_url, json=frame_data)
+            except Exception as e:
+                print("Can't establish connection to backend except:", e)
             try:
                 l_frame=l_frame.next
             except StopIteration:

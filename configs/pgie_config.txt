@@ -61,10 +61,10 @@ model-color-format=0
 
 # Model specific paths. These need to be updated for every classification model.
 tlt-model-key=tlt_encode
-tlt-encoded-model=/opt/nvidia/deepstream/deepstream-6.0/data/deep-stream-object-tracking/resources/models/resnet34_peoplenet_pruned.etlt
-labelfile-path=/opt/nvidia/deepstream/deepstream-6.0/data/deep-stream-object-tracking/resources/models/labels.txt
-model-engine-file=/opt/nvidia/deepstream/deepstream-6.0/data/deep-stream-object-tracking/resources/models/resnet34_peoplenet_pruned.etlt_b4_gpu0_int8.engine
-int8-calib-file=/opt/nvidia/deepstream/deepstream-6.0/data/deep-stream-object-tracking/resources/models/resnet34_peoplenet_int8.txt
+tlt-encoded-model=/opt/nvidia/deepstream/deepstream-6.0/app/resources/models/resnet34_peoplenet_pruned.etlt
+labelfile-path=/opt/nvidia/deepstream/deepstream-6.0/app/resources/models/labels.txt
+model-engine-file=/opt/nvidia/deepstream/deepstream-6.0/app/resources/models/resnet34_peoplenet_pruned.etlt_b4_gpu0_int8.engine
+int8-calib-file=/opt/nvidia/deepstream/deepstream-6.0/app/resources/models/resnet34_peoplenet_int8.txt
 batch-size=4
 num-detected-classes=3
 input-dims=3;544;960;0
