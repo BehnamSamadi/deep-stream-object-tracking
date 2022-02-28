@@ -111,9 +111,15 @@ To run the project after installing all the requirements just simply run:
 ```
 python3 pipeline configs/main_config.yml
 ```
-After running the command above, the pipeline starts to build and play, by detecting any object sendersink would send a post request to API, for testing results there is a simple Flask Rest-API that recieves post request from sendersink.<br>
+After running the command above, the pipeline starts to build and play, by detecting any object sendersink would send a post request to API, for testing results there is a simple Flask Rest-API that receives post request from sendersink.<br>
 To run the test API run the following commands:
 ```
 pip3 install flask, flask-cors
 python3 test/receiver_app.py
 ```
+
+
+## References:
+- https://github.com/NVIDIA-AI-IOT/deepstream_python_apps
+- https://github.com/GStreamer/gst-python
+
