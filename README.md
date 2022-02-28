@@ -28,7 +28,7 @@ To build
 
 To run
 > docker run --gpus all --network host -i deepstream_tracking_sample:0.1
-</br>
+
 ## <b>Ubuntu</b>
 There are three steps to install dependencies
 ### 1. DeepStream SDK
