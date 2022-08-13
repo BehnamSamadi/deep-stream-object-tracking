@@ -1,3 +1,4 @@
+from cmath import sin
 import sys
 import gi
 gi.require_version('Gst', '1.0')
@@ -121,6 +122,16 @@ def main(args):
     tracker = Gst.ElementFactory.make("nvtracker", "tracker")
     if not tracker:
         sys.stderr.write(" Unable to create tracker \n")
+    
+    nvvidconv1 = Gst.ElementFactory.make("nvvideoconvert", "convertor1")
+    if not nvvidconv1:
+        sys.stderr.write(" Unable to create nvvidconv1 \n")
+
+    caps1 = Gst.Caps.from_string("video/x-raw(memory:NVMM), format=RGBA")
+    filter1 = Gst.ElementFactory.make("capsfilter", "filter1")
+    if not filter1:
+        sys.stderr.write(" Unable to get the caps filter1 \n")
+    filter1.set_property("caps", caps1)
 
     print("Creating Queue \n")
     queue = Gst.ElementFactory.make("queue", "queue")
@@ -132,6 +143,8 @@ def main(args):
     if not sink:
         sys.stderr.write(" Unable to create file sink \n")
     sink.set_property("send-result-url", config['sender']['url'])
+    sink.set_property('image-save-dir', config['save_options']['save_dir'])
+    sink.set_property('image-path-prefix', config['save_options']['link_prefix'])
     sink.set_property("sync", 0)
 
     print("Playing file %s " %args[1])
@@ -172,10 +185,18 @@ def main(args):
             tracker_enable_past_frame = tracker_config.getint('tracker', key)
             tracker.set_property('enable_past_frame', tracker_enable_past_frame)
 
+
+
+    mem_type = int(pyds.NVBUF_MEM_CUDA_UNIFIED)
+    streammux.set_property("nvbuf-memory-type", mem_type)
+    nvvidconv1.set_property("nvbuf-memory-type", mem_type)
+
     print("Adding elements to Pipeline \n")
 
     pipeline.add(pgie)
     pipeline.add(tracker)
+    pipeline.add(nvvidconv1)
+    pipeline.add(filter1)
     pipeline.add(queue)
     pipeline.add(sink)
 
@@ -183,7 +204,9 @@ def main(args):
     
     streammux.link(pgie)
     pgie.link(tracker)
-    tracker.link(queue)
+    tracker.link(nvvidconv1)
+    nvvidconv1.link(filter1)
+    filter1.link(queue)
     queue.link(sink)
 
     # create an event loop and feed gstreamer bus mesages to it
