@@ -5,11 +5,11 @@ tracker:
   config_file: configs/tracker_config.txt
 
 sender:
-  url: http://localhost:5988/detection
+  url: http://localhost:5988/detection/
 
 sources:
   - file:///opt/nvidia/deepstream/deepstream-6.0/samples/streams/sample_720p.mp4 
 
 save_options:
   save_dir: './croped_images/'
-  link_prefix: 'http://localhost:9001/intrusion/'
+  link_prefix: 'http://localhost:9001/detection/person/'
